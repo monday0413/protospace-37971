@@ -1,7 +1,6 @@
 class PrototypesController < ApplicationController
  before_action :authenticate_user!
  before_action :move_to_index,  except: [:index, :show]
-
     def new
       @prototype =Prototype.new
     end
@@ -45,7 +44,6 @@ class PrototypesController < ApplicationController
       prototype.destroy
       redirect_to root_path
     end
-
 
 private
     def prototype_params
