@@ -2,6 +2,7 @@ class PrototypesController < ApplicationController
  before_action :authenticate_user!
  before_action :move_to_index,  except: [:index, :show, :new]
 
+ 
     def new
       @prototype =Prototype.new
     end
