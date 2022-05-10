@@ -1,6 +1,6 @@
 class PrototypesController < ApplicationController
  before_action :authenticate_user!, only: [:new, :edit, :destroy ]
- before_action :move_to_index,  except: [:index, :show, :new]
+ before_action :move_to_index,  except: [:index, :show, :new, :create]
 
     def new
       @prototype =Prototype.new
@@ -54,19 +54,9 @@ private
     end
 
     def move_to_index
-      @prototype = Prototype.find(params[:id])
+        @prototype = Prototype.find(params[:id])
       unless  @prototype.user_id == current_user.id
         redirect_to action: :index
-
       end
     end
 end
-# エラー文に"Couldn't find User with 'id'=4"と書いてあります。意味としては、「id=4のユーザーはないよ」と言っています
-# 。なぜ、このようなことになっているかというと、
-# novel_listsコントローラで@user = User.find(params[:id])としているからです。
-# 今、id=4のノベルをクリックしているのでparams[:id]の値は4となります。なので、id=4のユーザーを探しに行った結果、
-# id=4のユーザーは存在しないよと言っています。
-
-# そもそも、novel_listの中にユーザーidの情報が入っているので、そこでわざわざ@userとしなくていいと思います。
-# Novel_listテーブルとUserテーブルをアソシエーションで結んでいれば、例えば、ビュー側で@novel_list.user.nameとすれば、
-# ユーザーの情報は表示できると思います。
